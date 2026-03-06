@@ -1,6 +1,11 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+    const navigate = useNavigate();
+    const goToSignup = () => {
+    navigate("/signup");
+  };
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
       
@@ -28,6 +33,15 @@ const Login = () => {
           Login
         </button>
 
+        <p className="text-center mt-4 text-sm text-gray-600">
+  Create an account?{" "}
+  <span
+    onClick={goToSignup}
+    className="text-blue-600 cursor-pointer font-semibold hover:underline"
+  >
+    Signup
+  </span>
+</p>
       </div>
     </div>
   );
