@@ -1,0 +1,39 @@
+# Environment
+.env
+
+# Python
+__pycache__/# Environment
+.env
+
+# Virtual environment
+venv/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Database
+db.sqlite3
+
+# Node (if React inside project)
+node_modules/
+
+# VS Code
+.vscode/
+
+# Logs
+*.log
+
+*.pyc
+
+# Virtual environment
+venv/
+
+# Database
+db.sqlite3
+
+# OS files
+.DS_Store
+
+# Logs
+*.log
