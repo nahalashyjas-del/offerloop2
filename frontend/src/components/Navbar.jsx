@@ -1,6 +1,28 @@
 import React from 'react'
+import { useNavigate, useLocation } from 'react-router-dom'
 
 const Navbar = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const handleLogout = () => {
+    // Clear all user credentials
+    localStorage.removeItem("user");
+    localStorage.removeItem("student");
+    // Redirect to login
+    navigate("/login");
+  };
+
+  const isCompanyPage = location.pathname === '/company';
+
+  const togglePage = () => {
+    if (isCompanyPage) {
+      navigate("/home");
+    } else {
+      navigate("/company");
+    }
+  };
+
   return (
     <>
       {/* Top Bar */}
@@ -14,9 +36,9 @@ const Navbar = () => {
         {/* Right Section */}
         <div className="flex items-center gap-6">
           
-          {/* Home Button */}
-          <button className="text-gray-600 font-medium hover:text-blue-600 transition duration-200">
-            Home
+          {/* Navigation Toggle Button */}
+          <button onClick={togglePage} className="text-gray-600 font-medium hover:text-blue-600 transition duration-200">
+            {isCompanyPage ? "Switch to Dashboard" : "View Placement Offers"}
           </button>
 
           {/* Profile Icon */}
@@ -25,7 +47,10 @@ const Navbar = () => {
           </div>
 
           {/* Logout Button */}
-          <button className="bg-blue-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-blue-700 transition duration-200">
+          <button 
+            onClick={handleLogout}
+            className="bg-blue-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-blue-700 transition duration-200"
+          >
             Logout
           </button>
 

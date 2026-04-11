@@ -6,10 +6,18 @@ const SignupPage = () => {
   const navigate = useNavigate();
 
   const [user, setUser] = useState({
-    name: "",
-    email: "",
-    password: ""
-  });
+  name: "",
+  usn: "",
+  email: "",
+  password: "",
+  contact_number: "",
+  address: "",
+  dob: "",
+  cgpa: "",
+  education: "",
+  career_preference: "",
+  expected_ctc: ""
+});
 
   const handleChange = (e) => {
     setUser({
@@ -18,17 +26,41 @@ const SignupPage = () => {
     });
   };
 
-  const handleSignup = (e) => {
-    e.preventDefault();
-    alert("Signup Successful\nName: " + user.name);
-  };
+  const handleSignup = async (e) => {
+  e.preventDefault();
+
+  try {
+    const response = await fetch("http://127.0.0.1:8000/api/students/signup/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(user),
+    });
+
+    const data = await response.json();
+
+    if (response.ok) {
+      alert("Signup Successful ✅");
+
+      // Redirect to login page
+      navigate("/login");
+    } else {
+      console.log(data);
+      alert("Signup Failed ❌");
+    }
+  } catch (error) {
+    console.error(error);
+    alert("Error connecting to server");
+  }
+};
 
   const goToLogin = () => {
     navigate("/login");
   };
 
   return (
-    <div className="flex justify-center items-center h-screen bg-gray-100">
+<div className="min-h-screen bg-gray-100 flex justify-center py-10">
 
       <form
         onSubmit={handleSignup}
@@ -65,6 +97,77 @@ const SignupPage = () => {
           onChange={handleChange}
           className="w-full p-2 mb-5 border rounded"
         />
+
+        <input
+          type="number"
+          name="cgpa"
+          placeholder="Enter cgpa"
+          value={user.cgpa}
+          onChange={handleChange}
+          className="w-full p-2 mb-5 border rounded"
+        />
+
+        <input
+  type="text"
+  name="usn"
+  placeholder="Enter USN"
+  value={user.usn}
+  onChange={handleChange}
+  className="w-full p-2 mb-4 border rounded"
+/>
+
+<input
+  type="text"
+  name="contact_number"
+  placeholder="Enter Contact Number"
+  value={user.contact_number}
+  onChange={handleChange}
+  className="w-full p-2 mb-4 border rounded"
+/>
+
+<input
+  type="text"
+  name="address"
+  placeholder="Enter Address"
+  value={user.address}
+  onChange={handleChange}
+  className="w-full p-2 mb-4 border rounded"
+/>
+
+<input
+  type="date"
+  name="dob"
+  value={user.dob}
+  onChange={handleChange}
+  className="w-full p-2 mb-4 border rounded"
+/>
+
+<input
+  type="text"
+  name="education"
+  placeholder="Enter Education"
+  value={user.education}
+  onChange={handleChange}
+  className="w-full p-2 mb-4 border rounded"
+/>
+
+<input
+  type="text"
+  name="career_preference"
+  placeholder="Career Preference"
+  value={user.career_preference}
+  onChange={handleChange}
+  className="w-full p-2 mb-4 border rounded"
+/>
+
+<input
+  type="number"
+  name="expected_ctc"
+  placeholder="Expected CTC"
+  value={user.expected_ctc}
+  onChange={handleChange}
+  className="w-full p-2 mb-4 border rounded"
+/>
 
         <button
           type="submit"
